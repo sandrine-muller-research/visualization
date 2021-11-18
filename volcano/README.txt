@@ -21,7 +21,8 @@ streamlit run volcano\plotvolcano.py
     (b) the p-values,
     (c) the adjusted p-values for multiple comparisons, and
     (d) the names of the genes or features.
-2) Click Go! It will take a few seconds to load your file in the viewer.
-3) Change visualization parameters to your preference on the left side.
-    The changes will happen only once you validate them (Click Go again!)
-4) Download your results using the links on the left side of the volcano plot.
+2) Click Submit! It will take a few seconds to load your file in the viewer.
+3) Change visualization parameters to your preference on the top left side.
+    The changes will happen only once you validate them (Click Go!)
+4) Run GeLiNEA analysis using the panel on the bottom left side (Click Go!)
+5) Download your results using the links on the left side of the volcano plot.
