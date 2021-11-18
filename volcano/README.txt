@@ -6,6 +6,7 @@ If you do not have these packages, please install them before running the code.
 ** Package installation (in the local OS terminal) **
 pip install pandas
 pip install numpy
+pip install plotly
 pip install matplotlib
 pip install adjustText
 pip install streamlit
@@ -24,4 +25,3 @@ streamlit run volcano\plotvolcano.py
 3) Change visualization parameters to your preference on the left side.
     The changes will happen only once you validate them (Click Go again!)
 4) Download your results using the links on the left side of the volcano plot.
-
