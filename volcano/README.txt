@@ -12,10 +12,16 @@ pip install streamlit
 
 ** Run app **
 At the local OS command prompt, run the following command to launch a local web browser:
-streamlit run plotvolcano.py
-(you need to be in the 'volcano' folder)
+streamlit run volcano\plotvolcano.py
 
 ** GUI **
-1) load your (.csv) file and indicate the name of the columns containing (i)the log fold-change, (ii) the p-values, (iii) the adjusted p-values for multiple comparisons, (iv) the name of the genes. Then click Go! It will take a few second to load your file in the viewer.
-2) change visualization parameters to your convenience on the left side. The changes will happen only once you validate them (click on Go!)
-3) Download your results using the links on the left side of the Volcano plot.
+1) load your (.csv) file and indicate the name of the columns containing
+    (a) the log fold-change,
+    (b) the p-values,
+    (c) the adjusted p-values for multiple comparisons, and
+    (d) the names of the genes or features.
+2) Click Go! It will take a few seconds to load your file in the viewer.
+3) Change visualization parameters to your preference on the left side.
+    The changes will happen only once you validate them (Click Go again!)
+4) Download your results using the links on the left side of the volcano plot.
+
