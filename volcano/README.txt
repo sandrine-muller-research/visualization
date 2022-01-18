@@ -1,26 +1,28 @@
 *** README ***
 
-To run this app you need to have python installed on your machine. 
+To run this app you need to have Python installed on your machine.
+If you do not have these packages, please install them before running the code.
 
-** Packages installation **
-Packages needed:
-pandas
-numpy
-matplotlib
-adjustText
-streamlit
-
-If you do not have this packages, please install them before running the code (pip install package in the terminal)
-
+** Package installation (in the local OS terminal) **
+pip install pandas
+pip install numpy
+pip install plotly
+pip install matplotlib
+pip install adjustText
+pip install streamlit
 
 ** Run app **
-Once the packages are up and running:
-1) on the command line go to the code location
-2) run the following command to launch a local web browser
-streamlit run plotvolcano.py 
-
+At the local OS command prompt, run the following command to launch a local web browser:
+streamlit run volcano\plotvolcano.py
 
 ** GUI **
-1) load your (.csv) file and indicate the name of the columns containing (i)the log fold-change, (ii) the p-values, (iii) the adjusted p-values for multiple comparisons, (iv) the name of the genes. Then click Go! It will take a few second to load your file in the viewer.
-2) change visualization parameters to your convenience on the left side. The changes will happen only once you validate them (click on Go!)
-3) Download your results using the links on the left side of the Volcano plot. 
+1) load your (.csv) file and indicate the name of the columns containing
+    (a) the log fold-change,
+    (b) the p-values,
+    (c) the adjusted p-values for multiple comparisons, and
+    (d) the names of the genes or features.
+2) Click Submit! It will take a few seconds to load your file in the viewer.
+3) Change visualization parameters to your preference on the top left side.
+    The changes will happen only once you validate them (Click Go!)
+4) Run GeLiNEA analysis using the panel on the bottom left side (Click Go!)
+5) Download your results using the links on the left side of the volcano plot.
