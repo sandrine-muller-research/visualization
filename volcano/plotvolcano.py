@@ -142,6 +142,20 @@ def dataframe_read_ftype(path_in,ftype, delimiter):
 
     return d
 
+def correct_pval_exceeds_machine_precision(pval):
+    pval_zeros = pval == 0
+    min_pval = np.min(pval)
+    if np.sum(pval_zeros) != 0:
+        log_pval =  -np.log10(pval)
+        log_min_pval = -np.log10(min_pval)
+        perc_max = np.percentile(log_pval[not(pval_zeros)],100)
+        error = perc_max - np.percentile(log_pval[not(pval_zeros)],99)
+        log_max_pval = perc_max +  np.random.normal(0, 0.1, np.sum(pval_zeros))*np.sqrt(error)
+    else:
+        log_pval_corr = pval
+
+    return log_pval_corr
+
 class VolcanoApp:
 
     def __init__(self):
@@ -255,7 +269,8 @@ class VolcanoApp:
         pathway_name = pathway_df['id'].values
         pvaladj = np.array(pathway_df['GeLiNEA_p_adj'].values.tolist())
         pvaladj[pvaladj>1] = 1
-        pvaladj = -np.log10(pvaladj).round(2)
+        # correction when p-value exceeds machine precision:
+        pvaladj = correct_pval_exceeds_machine_precision(pvaladj)
         
         if pvaladj.size != 0:
             df = DataFrame({'-log10(padj)': pvaladj,'pathways': pathway_name})
@@ -311,10 +326,6 @@ class VolcanoApp:
             d = pd.read_csv(f)
             print(f)
             ftype, delimiter = self.check_file_type(f.name,csv_type,tsv_type,tab_type,txt_type)
-            # d = dataframe_read_ftype(f,ftype, delimiter)
-            print('////////////////////////////////////////////////////////////')
-            print(d)
-            print('************************************************************')
             FC, pvalue,FWER,genes = self.extract_data(d,FCvar, pvaluevar, FWERvar, genenamesvar)
 
 
@@ -334,6 +345,11 @@ class VolcanoApp:
 
         if d is not None:
             genes_pos,genes_neg,genes_both = self.create_genelists(d,color_index.tolist()) # get sig. gene lists
+            
+            print('////////////////////////////////////////////////////////////')
+            print(genes_both)
+            print('************************************************************')
+
             col1.markdown(get_table_download_link(genes_pos,"positive significant gene set"), unsafe_allow_html=True)
             col1.markdown(get_table_download_link(genes_neg,"negative significant gene set"), unsafe_allow_html=True)
             col1.markdown(get_table_download_link(genes_both,"negative and positive significant gene sets"), unsafe_allow_html=True)
