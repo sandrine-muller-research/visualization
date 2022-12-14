@@ -119,11 +119,12 @@ def MolePro_run_GeLiNEA(gene_list_json,MSigDB_collection,pval_threshold):
     {'name':'maximum p-value', 'value':pval_threshold}
     ]
 
-    query = {'name':'gene-list network enrichment analysis (GeLiNEA)', 'collection_id':gene_list_json['id'], 'controls':controls}
+    query = {'name':'Gene-list network enrichment analysis', 'collection_id':gene_list_json['id'], 'controls':controls}
     pathways = requests.post(base_url+'/transform', json=query).json()
     p = pathways['url']
-    p = p.replace('http://localhost:9200/molecular_data_provider',base_url)
+    # p = p.replace('http://localhost:9200/molecular_data_provider',base_url)
     x = requests.get(p).json()
+    print(x)
     return x,n_paths
 
 # @st.cache(suppress_st_warning=True)
