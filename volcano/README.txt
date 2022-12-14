@@ -10,6 +10,7 @@ pip install plotly
 pip install matplotlib
 pip install adjustText
 pip install streamlit
+pip install openpyxl
 
 ** Run app **
 At the local OS command prompt, run the following command to launch a local web browser:
