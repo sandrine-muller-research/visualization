@@ -334,7 +334,7 @@ class VolcanoApp:
             fig = self.plot_volcano(FC,pvalue,genes,mkr_size,color_index,cmaps_choice,transp,adj)
             st.markdown('<p class="font-style" >volcano plot</p>',unsafe_allow_html=True)
             col1, col2 = st.columns((1,4))
-            col2.plotly_chart(fig,use_container_width=True)
+            col2.pyplot(fig)
         else:
             FCvar = ''
             pvaluevar = ''
