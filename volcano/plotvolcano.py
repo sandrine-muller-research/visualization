@@ -78,22 +78,25 @@ def pathways_json_to_df(in_json, geneset_size):
     # function to reformat GeLiNEA results into a data frame
     # Vlado: For p-value correction, you want to multiply by the number of genesets -
     # 4731 for C2, 5917 for C5, and 50 for H.
+    with open('json_data.json', 'w') as outfile:
+        outfile.write(json.dumps(in_json))
     h_df = pd.DataFrame(columns = ['id', 'gene_list_overlap', 'gene_list_connections','GeLiNEA_p_value','GeLiNEA_p_adj'])
     df_size = in_json['size']
     for i in range(0,df_size):
         attr = {attr['original_attribute_name']:attr['value'] for attr in in_json['elements'][i]['connections'][0]['attributes']}
-        if (float(attr['GeLiNEA p-value']) * geneset_size) < 0.5:
+        adj_p = float(attr['GeLiNEA p-value']) * geneset_size
+        if adj_p < 0.5:
             h_df = h_df.append({'id' : in_json['elements'][i]['id'],
                                 'gene_list_overlap' : attr['gene-list overlap'],
                                 'gene_list_connections' : attr['gene-list connections'],
                                 'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
-                                'GeLiNEA_p_adj': float(attr['GeLiNEA adjusted p-value']) * geneset_size
+                                'GeLiNEA_p_adj': adj_p
                             },
                             ignore_index = True)
     return h_df
 
 def MolePro_query_genelist(gene_list):
-    print(gene_list)
+    # print(gene_list)
     genes_str = ';'.join(gene_list)
     base_url = 'https://translator.broadinstitute.org/molecular_data_provider' #'http://chembio-dev-01:9200/molecular_data_provider' #
     controls = [{'name':'genes', 'value':genes_str}]
@@ -325,7 +328,7 @@ class VolcanoApp:
             # d,path_in = self.get_file(f)
             ftype, delimiter = self.check_file_type(f.name,csv_type,tsv_type,tab_type,txt_type)
             d = pd.read_csv(f)
-            print(f)
+            # print(f)
             ftype, delimiter = self.check_file_type(f.name,csv_type,tsv_type,tab_type,txt_type)
             FC, pvalue,FWER,genes = self.extract_data(d,FCvar, pvaluevar, FWERvar, genenamesvar)
 
@@ -347,10 +350,6 @@ class VolcanoApp:
         if d is not None:
             genes_pos,genes_neg,genes_both = self.create_genelists(d,color_index.tolist()) # get sig. gene lists
             
-            print('////////////////////////////////////////////////////////////')
-            print(genes_both)
-            print('************************************************************')
-
             col1.markdown(get_table_download_link(genes_pos,"positive significant gene set"), unsafe_allow_html=True)
             col1.markdown(get_table_download_link(genes_neg,"negative significant gene set"), unsafe_allow_html=True)
             col1.markdown(get_table_download_link(genes_both,"negative and positive significant gene sets"), unsafe_allow_html=True)
