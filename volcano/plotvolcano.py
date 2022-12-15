@@ -86,19 +86,25 @@ def pathways_json_to_df(in_json, geneset_size):
         attr = {attr['original_attribute_name']:attr['value'] for attr in in_json['elements'][i]['connections'][0]['attributes']}
         adj_p = float(attr['GeLiNEA p-value']) * geneset_size
         if adj_p < 0.5:
-            h_df = h_df.append({'id' : in_json['elements'][i]['id'],
+            pt_df = {'id' : in_json['elements'][i]['id'],
                                 'gene_list_overlap' : attr['gene-list overlap'],
                                 'gene_list_connections' : attr['gene-list connections'],
                                 'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
                                 'GeLiNEA_p_adj': adj_p
-                            },
-                            ignore_index = True)
+                            }
+            h_df = pd.concat([h_df, pt_df])
+            # h_df = h_df.append({'id' : in_json['elements'][i]['id'],
+            #                     'gene_list_overlap' : attr['gene-list overlap'],
+            #                     'gene_list_connections' : attr['gene-list connections'],
+            #                     'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
+            #                     'GeLiNEA_p_adj': adj_p
+            #                 },
+            #                 ignore_index = True)
     return h_df
 
 def MolePro_query_genelist(gene_list):
-    # print(gene_list)
     genes_str = ';'.join(gene_list)
-    base_url = 'https://translator.broadinstitute.org/molecular_data_provider' #'http://chembio-dev-01:9200/molecular_data_provider' #
+    base_url = 'https://translator.broadinstitute.org/molecular_data_provider'
     controls = [{'name':'genes', 'value':genes_str}]
     query = {'name':'HGNC gene-list producer', 'controls':controls}
     gene_list_json = requests.post(base_url+'/transform', json=query).json()
@@ -106,7 +112,7 @@ def MolePro_query_genelist(gene_list):
     return gene_list_json
 
 def MolePro_run_GeLiNEA(gene_list_json,MSigDB_collection,pval_threshold):
-    base_url = 'https://translator.broadinstitute.org/molecular_data_provider' #'http://chembio-dev-01:9200/molecular_data_provider' #
+    base_url = 'https://translator.broadinstitute.org/molecular_data_provider'
     if MSigDB_collection == 'H - hallmark gene sets':
         n_paths = 50
     elif MSigDB_collection == 'C2 - curated gene sets':
@@ -125,9 +131,7 @@ def MolePro_run_GeLiNEA(gene_list_json,MSigDB_collection,pval_threshold):
     query = {'name':'Gene-list network enrichment analysis', 'collection_id':gene_list_json['id'], 'controls':controls}
     pathways = requests.post(base_url+'/transform', json=query).json()
     p = pathways['url']
-    # p = p.replace('http://localhost:9200/molecular_data_provider',base_url)
     x = requests.get(p).json()
-    print(x)
     return x,n_paths
 
 # @st.cache(suppress_st_warning=True)
@@ -328,7 +332,6 @@ class VolcanoApp:
             # d,path_in = self.get_file(f)
             ftype, delimiter = self.check_file_type(f.name,csv_type,tsv_type,tab_type,txt_type)
             d = pd.read_csv(f)
-            # print(f)
             ftype, delimiter = self.check_file_type(f.name,csv_type,tsv_type,tab_type,txt_type)
             FC, pvalue,FWER,genes = self.extract_data(d,FCvar, pvaluevar, FWERvar, genenamesvar)
 
@@ -363,11 +366,12 @@ class VolcanoApp:
             df_pathways_neg = pathways_json_to_df(MSigDB_pathways_neg,MSigDB_n_paths_neg)
             fig_gelinea_neg = self.plot_GeLiNEA(df_pathways_neg,cmaps_choice)
             if fig_gelinea_neg is not None:
-                col3.subheader('enrichment (GeLiNEA) negative gene set')
+                col3.subheader('system biology enrichment (GeLiNEA) negative gene set')
                 col3.altair_chart(fig_gelinea_neg,use_container_width=True)
                 col3.write(df_pathways_neg)
+                col3.markdown(get_table_download_link(df_pathways_neg,"system biology enrichment of negative set"), unsafe_allow_html=True)
             else:
-                col3.subheader('enrichment (GeLiNEA) negative gene set')
+                col3.subheader('system biology enrichment (GeLiNEA) negative gene set')
                 col3.text('no significant enrichment')
 
             ## POSITIVE SET
@@ -381,6 +385,7 @@ class VolcanoApp:
                 col4.subheader('enrichment (GeLiNEA) positive gene set')
                 col4.altair_chart(fig_gelinea_pos,use_container_width=True)
                 col4.write(df_pathways_pos)
+                col4.markdown(get_table_download_link(df_pathways_pos,"system biology enrichment of positive set"), unsafe_allow_html=True)
             else:
                 col4.subheader('enrichment (GeLiNEA) positive gene set')
                 col4.text('no significant enrichment')
