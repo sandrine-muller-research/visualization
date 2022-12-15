@@ -92,14 +92,14 @@ def pathways_json_to_df(in_json, geneset_size):
                                 'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
                                 'GeLiNEA_p_adj': adj_p
                             }
-            h_df = pd.concat([h_df, pt_df])
-            # h_df = h_df.append({'id' : in_json['elements'][i]['id'],
-            #                     'gene_list_overlap' : attr['gene-list overlap'],
-            #                     'gene_list_connections' : attr['gene-list connections'],
-            #                     'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
-            #                     'GeLiNEA_p_adj': adj_p
-            #                 },
-            #                 ignore_index = True)
+            # h_df = pd.concat([h_df, pt_df])
+            h_df = h_df.append({'id' : in_json['elements'][i]['id'],
+                                'gene_list_overlap' : attr['gene-list overlap'],
+                                'gene_list_connections' : attr['gene-list connections'],
+                                'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
+                                'GeLiNEA_p_adj': adj_p
+                            },
+                            ignore_index = True)
     return h_df
 
 def MolePro_query_genelist(gene_list):
@@ -276,9 +276,11 @@ class VolcanoApp:
 
         pathway_name = pathway_df['id'].values
         pvaladj = np.array(pathway_df['GeLiNEA_p_adj'].values.tolist())
+        print(pvaladj)
         pvaladj[pvaladj>1] = 1
         # correction when p-value exceeds machine precision:
         pvaladj = correct_pval_exceeds_machine_precision(pvaladj)
+        print(pvaladj)
         
         if pvaladj.size != 0:
             df = DataFrame({'-log10(padj)': pvaladj,'pathways': pathway_name})
