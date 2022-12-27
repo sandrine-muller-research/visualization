@@ -16,6 +16,7 @@ from matplotlib.figure import Figure
 import requests
 import altair as alt
 import json
+import re
 
 # Variables
 BASE_URL = ['https://translator.broadinstitute.org/molecular_data_provider','http://chembio-dev-01:9200/molecular_data_provider']
@@ -78,6 +79,9 @@ def pathways_json_to_df(in_json, geneset_size):
     # function to reformat GeLiNEA results into a data frame
     # Vlado: For p-value correction, you want to multiply by the number of genesets -
     # 4731 for C2, 5917 for C5, and 50 for H.
+    
+    patt = re.compile(r"(MSigDB:\w*_)",re.IGNORECASE)
+    
     with open('json_data.json', 'w') as outfile:
         outfile.write(json.dumps(in_json))
     h_df = pd.DataFrame(columns = ['id', 'gene_list_overlap', 'gene_list_connections','GeLiNEA_p_value','GeLiNEA_p_adj'])
@@ -86,20 +90,27 @@ def pathways_json_to_df(in_json, geneset_size):
         attr = {attr['original_attribute_name']:attr['value'] for attr in in_json['elements'][i]['connections'][0]['attributes']}
         adj_p = float(attr['GeLiNEA p-value']) * geneset_size
         if adj_p < 0.5:
-            pt_df = {'id' : in_json['elements'][i]['id'],
-                                'gene_list_overlap' : attr['gene-list overlap'],
-                                'gene_list_connections' : attr['gene-list connections'],
-                                'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
-                                'GeLiNEA_p_adj': adj_p
-                            }
-            # h_df = pd.concat([h_df, pt_df])
-            h_df = h_df.append({'id' : in_json['elements'][i]['id'],
-                                'gene_list_overlap' : attr['gene-list overlap'],
-                                'gene_list_connections' : attr['gene-list connections'],
-                                'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
-                                'GeLiNEA_p_adj': adj_p
-                            },
-                            ignore_index = True)
+            id = in_json['elements'][i]['id']
+            id = patt.sub("", id,1)
+            # id = id[1:]
+            
+            pt_df = pd.DataFrame({'id' : id,
+                                  'gene_list_overlap' : attr['gene-list overlap'],
+                                  'gene_list_connections' : attr['gene-list connections'],
+                                  'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
+                                  'GeLiNEA_p_adj': [adj_p]})
+            h_df = pd.concat([h_df, pt_df])
+            print(h_df)
+            # .reset_index(drop=True)
+            # h_df = h_df.append({'id' : in_json['elements'][i]['id'],
+            #                     'gene_list_overlap' : attr['gene-list overlap'],
+            #                     'gene_list_connections' : attr['gene-list connections'],
+            #                     'GeLiNEA_p_value': float(attr['GeLiNEA p-value']),
+            #                     'GeLiNEA_p_adj': adj_p
+            #                 },
+            #                 ignore_index = True)
+    if h_df is not None:
+        h_df.sort_values(by=['GeLiNEA_p_adj'])
     return h_df
 
 def MolePro_query_genelist(gene_list):
@@ -170,10 +181,10 @@ class VolcanoApp:
         st.set_page_config(layout="wide")
 
     def get_header_names(self,col1, col2, col3, col4):
-        FCvar = col1.text_input("column name: log-fold-change", "logFC_norm")
+        FCvar = col1.text_input("column name: log-fold-change", "logFC")
         pvaluevar = col2.text_input("column name: p-values", "pvalue")
         FWERvar = col3.text_input("column name: adjusted p-values", "padj")
-        genenamesvar = col4.text_input("column name: genes", "gene_approved_symbol")
+        genenamesvar = col4.text_input("column name: genes", "ID")
         return FCvar, pvaluevar, FWERvar, genenamesvar
 
     def get_file_type(self,handle=None):
@@ -243,7 +254,7 @@ class VolcanoApp:
             FWER = np.empty((1,2))
             genes = ["",""]
 
-        return FC, pvalue,FWER,genes
+        return FC,pvalue,FWER,genes
 
     def create_genelists(self,df,status):
         idx_pos = [x>0 for x in status]
@@ -280,7 +291,6 @@ class VolcanoApp:
         pvaladj[pvaladj>1] = 1
         # correction when p-value exceeds machine precision:
         pvaladj = correct_pval_exceeds_machine_precision(pvaladj)
-        print(pvaladj)
         
         if pvaladj.size != 0:
             df = DataFrame({'-log10(padj)': pvaladj,'pathways': pathway_name})
@@ -336,9 +346,6 @@ class VolcanoApp:
             d = pd.read_csv(f)
             ftype, delimiter = self.check_file_type(f.name,csv_type,tsv_type,tab_type,txt_type)
             FC, pvalue,FWER,genes = self.extract_data(d,FCvar, pvaluevar, FWERvar, genenamesvar)
-
-
-
             color_index = ((np.double(FC>thsigFC))+(-np.double(-FC>thsigFC)))*np.double(-np.log10(FWER)>thsigpval)
             fig = self.plot_volcano(FC,pvalue,genes,mkr_size,color_index,cmaps_choice,transp,adj)
             st.markdown('<p class="font-style" >volcano plot</p>',unsafe_allow_html=True)
@@ -366,6 +373,7 @@ class VolcanoApp:
             genes_neg_json = MolePro_query_genelist(genes_neg[genenamesvar].values.tolist())
             MSigDB_pathways_neg,MSigDB_n_paths_neg = MolePro_run_GeLiNEA(genes_neg_json,MSigDB_collection,pval_threshold)
             df_pathways_neg = pathways_json_to_df(MSigDB_pathways_neg,MSigDB_n_paths_neg)
+            print(df_pathways_neg)
             fig_gelinea_neg = self.plot_GeLiNEA(df_pathways_neg,cmaps_choice)
             if fig_gelinea_neg is not None:
                 col3.subheader('system biology enrichment (GeLiNEA) negative gene set')
@@ -403,6 +411,7 @@ class VolcanoApp:
                 st.subheader('enrichment (GeLiNEA) positive and negative gene sets')
                 st.altair_chart(fig_gelinea_posneg,use_container_width=True)
                 st.write(df_pathways_posneg)
+                st.markdown(get_table_download_link(df_pathways_posneg,"system biology enrichment of positive and negative sets"), unsafe_allow_html=True)
             else:
                 st.subheader('enrichment (GeLiNEA) positive and negative gene sets')
                 st.text('no significant enrichment')
