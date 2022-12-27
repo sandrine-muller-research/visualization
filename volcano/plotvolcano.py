@@ -80,7 +80,8 @@ def pathways_json_to_df(in_json, geneset_size):
     # Vlado: For p-value correction, you want to multiply by the number of genesets -
     # 4731 for C2, 5917 for C5, and 50 for H.
     
-    patt = re.compile(r"(MSigDB:\w*_)",re.IGNORECASE)
+    # patt = re.compile(r"(MSigDB:\w*_)",re.IGNORECASE)
+    patt = re.compile(r"_",re.IGNORECASE)
     
     with open('json_data.json', 'w') as outfile:
         outfile.write(json.dumps(in_json))
@@ -91,8 +92,9 @@ def pathways_json_to_df(in_json, geneset_size):
         adj_p = float(attr['GeLiNEA p-value']) * geneset_size
         if adj_p < 0.5:
             id = in_json['elements'][i]['id']
-            id = patt.sub("", id,1)
-            # id = id[1:]
+            id_idx1 = re.search("_", id).start()
+            # id = patt.sub("", id,1)
+            id = id[id_idx1+1:].replace("_", " ")
             
             pt_df = pd.DataFrame({'id' : id,
                                   'gene_list_overlap' : attr['gene-list overlap'],
