@@ -1,0 +1,233 @@
+{
+    "Identification":
+    [
+        {
+            "name":"queried name",
+            "description":"",
+            "values":["query name"]
+        },
+        {
+            "name":"name",
+            "description":"",
+            "values":["name"]
+        },
+        {
+            "name":"description",
+            "description":"",
+            "values":["description"]
+        },
+        {
+            "name":"type",
+            "description":"",
+            "values":["molecule_type"]
+        },
+        {
+            "name":"category",
+            "description":"",
+            "values":["Drug Type","Drug Groups","Drug Class","Drug Categories","FAMILY_NAME","inorganic_flag","natural_product","prodrug","RADIOACTIVE","polymer_flag","TYPE","substanceClass","Is VIP","Radioactivity"]
+        }
+    ],
+    "Functional properties":
+    [
+        {
+            "name":"mechanism of action",
+            "description":"",
+            "values":["mechanism-of-action"]
+        },
+        {
+            "name":"biological function",
+            "description":"",
+            "values":
+            [
+                {
+                    "name":"reported general function",
+                    "description":"",
+                    "values":["general-function"]
+                },
+                {
+                    "name":"interactions",
+                    "description":"",
+                    "values":["protein-binding"]
+                },
+                {
+                    "name":"metabolism",
+                    "description":"",
+                    "values":["metabolism"]
+                },
+                {
+                    "name":"specificity",
+                    "description":"",
+                    "values":["specific-function"]
+                },
+                {
+                    "name":"pharmacodynamics",
+                    "description":"",
+                    "values":["pharmacodynamics"]
+                }
+            ]
+        },
+        {
+            "name":"target",
+            "description":"",
+            "values":["target_development_level"]
+        },
+        {
+            "name":"toxicity",
+            "description":"",
+            "values":["toxicity"]
+        },
+        {
+            "name":"chemical experimental properties",
+            "description":"",
+            "values":["caco2 Permeability","Hydrophobicity","Water Solubility","calculated-properties/Water Solubility","PSA"]        
+        }
+    ],
+    "Therapeutics": 
+    [    
+        {
+            "name":"therapeutic use",
+            "description":"",
+            "values":["therapeutic_flag"]
+        },   
+        {
+            "name":"FDA approval",
+            "description":"",
+            "values":
+            [{
+                "name":"status",
+                "description":"",
+                "values":["fda-label","biolink:highest_FDA_approval_status","first_approval","FDA Approval","FDA approval","highest_FDA_approval_status","LABELLED"]
+            },
+            {
+                "name":"year",
+                "description":"",
+                "values":["Year of Approval"]
+            }]
+        },
+        {
+            "name":"ingredients",
+            "description":"",
+            "values":["ingredient type"]
+        },
+        {
+            "name":"indication",
+            "description":"",
+            "values":["indication_class","indication","Drug Indications"]
+        },
+        {
+            "name":"dosage",
+            "description":"",
+            "values":["dosed_ingredient"]
+        },
+        {
+            "name":"delivery",
+            "description":"",
+            "values":["oral","parenteral","topical","absorption"]
+        },
+        {
+            "name":"availability",
+            "description":"",
+            "values":["availability_type","affected-organism","calculated-properties/Bioavailability"]
+        },
+        {
+            "name":"half-life",
+            "description":"",
+            "values":["half-life"]
+        },
+        {
+            "name":"elimination",
+            "description":"",
+            "values":["route-of-elimination","clearance"]
+        },
+        {
+            "name":"withdrawn",
+            "description":"",
+            "values":
+            [{
+                "name":"status",
+                "description":"",
+                "values":["withdrawn_flag","black_box_warning","WITHDRAWN"]
+            },
+            {
+                "name":"additional informations regarding withdrawal",
+                "description":"",
+                "values":["withdrawn_year","withdrawn_country","withdrawn_reason","withdrawn_class"]
+            }]
+        },
+        {
+            "name":"supplier",
+            "description":"",
+            "values":["Pharmaceutical Developer"]
+        }
+    ], 
+    "Chemical properties":
+    [
+        {
+            "name":"Molecular formula",
+            "description":"",
+            "values":["Molecular Formula","molecular formula","MOLECULAR_FORMULA","formula"]        
+        },
+        {
+            "name":"mass",
+            "description":"",
+            "values":["Molecular Weight","molecular-weight","monoisotopic-mass","average-mass","MOLECULAR_WEIGHT","MONOISOTOPIC_WEIGHT","molecularWeight"]        
+        },
+        {
+            "name":"molecular conformation",
+            "description":"",
+            "values":["definedStereo","ezCenters","stereoCenters","atropisomerism","opticalActivity","stereochemistry","chirality","atropisomerism","charge"]        
+        },
+        {
+            "name":"experimental properties",
+            "description":"",
+            "values":["caco2 Permeability","Hydrophobicity","Water Solubility","calculated-properties/Water Solubility","PSA"]        
+        },
+        {
+            "name":"calculated properties",
+            "description":"",
+            "values":["HBA_COUNT","HBD_COUNT","ROTATABLE_BOND_COUNT"]
+        },
+        {
+            "name":"other experimental properties",
+            "description":"",
+            "values":["opticalActivity","Boiling Point","Isoelectric Point","Melting Point","logP","calculated-properties/logP","experimental-properties/logP","logS","experimental-properties/logS","pKa","experimental-properties/pKa","pKa (strongest acidic)","pKa (strongest basic)","theoretical-pi"]        
+        }
+    ],  
+    "IDs":
+    [
+        {
+            "name":"Other identifications",
+            "description":"",
+            "values":["InChI","InChIKey","calculated-properties/SMILES","pdb-entry","ATC","MeSH","usan_stem_definition","usan_substem"]
+        },
+        {
+            "name":"Other names",
+            "description":"",
+            "values":["calculated-properties/Traditional IUPAC Name"]
+        }
+    ],
+    "Referrences":
+    [
+        {
+            "name":"Popularity",
+            "description":"",
+            "values":["Counted Citations from 1950-2000"]
+        },
+        {
+            "name":"Publications",
+            "description":"",
+            "values":["Source Reported Drug Name(s)","biolink:Publication","synthesis-reference","reference"]
+        },
+        {
+            "name":"Patents",
+            "description":"",
+            "values":["patent"]
+        },
+        {
+            "name":"Other",
+            "description":"",
+            "values":["external-link"]
+        }
+    ]
+
+}
