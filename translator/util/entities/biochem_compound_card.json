@@ -3,82 +3,82 @@
     [
         {
             "name":"queried name",
-            "description":"",
+            "description":"The name of the compound as queried by the user.",
             "values":["query name"]
         },
         {
             "name":"name",
-            "description":"",
+            "description":"The most common name of the compound.",
             "values":["name"]
         },
         {
             "name":"description",
-            "description":"",
+            "description":"A short description of the compound.",
             "values":["description"]
         },
         {
             "name":"type",
-            "description":"",
-            "values":["molecule_type"]
+            "description":"The type of molecule the compound belongs to.",
+            "values":["molecule_type","Drug Type","TYPE"]
         },
         {
             "name":"category",
-            "description":"",
-            "values":["Drug Type","Drug Groups","Drug Class","Drug Categories","FAMILY_NAME","inorganic_flag","natural_product","prodrug","RADIOACTIVE","polymer_flag","TYPE","substanceClass","Is VIP","Radioactivity"]
+            "description":"The categories of the compound.",
+            "values":["Drug Groups","Drug Class","Drug Categories","FAMILY_NAME","inorganic_flag","natural_product","prodrug","RADIOACTIVE","polymer_flag","substanceClass","Is VIP","Radioactivity"]
         }
     ],
     "Functional properties":
     [
         {
             "name":"mechanism of action",
-            "description":"",
+            "description":"Any known mechanism by which the compound exerts its therapeutic effect.",
             "values":["mechanism-of-action"]
         },
         {
             "name":"biological function",
-            "description":"",
+            "description":"The biological function of the compound, including its reported general function, interactions, metabolism, specificity, and pharmacodynamics.",
             "values":
             [
                 {
                     "name":"reported general function",
-                    "description":"",
+                    "description":"The reported general function of the compound.",
                     "values":["general-function"]
                 },
                 {
                     "name":"interactions",
-                    "description":"",
+                    "description":"The reported protein interactions of the compound.",
                     "values":["protein-binding"]
                 },
                 {
                     "name":"metabolism",
-                    "description":"",
+                    "description":"The reported metabolism of the compound.",
                     "values":["metabolism"]
                 },
                 {
                     "name":"specificity",
-                    "description":"",
+                    "description":"The reported specific function of the compound.",
                     "values":["specific-function"]
                 },
                 {
                     "name":"pharmacodynamics",
-                    "description":"",
+                    "description":"The reported pharmacodynamics of the compound.",
                     "values":["pharmacodynamics"]
                 }
             ]
         },
         {
             "name":"target",
-            "description":"",
+            "description":"The target of the compound, typically a protein or enzyme it interacts with.",
             "values":["target_development_level"]
         },
         {
             "name":"toxicity",
-            "description":"",
+            "description":"The potential for harm or danger posed by the compound to living organisms.",
             "values":["toxicity"]
         },
         {
             "name":"chemical experimental properties",
-            "description":"",
+            "description":"Properties of the compound that are determined through laboratory experimentation.",
             "values":["caco2 Permeability","Hydrophobicity","Water Solubility","calculated-properties/Water Solubility","PSA"]        
         }
     ],
@@ -86,32 +86,32 @@
     [    
         {
             "name":"therapeutic use",
-            "description":"",
+            "description":"Indication for therapeutic use.",
             "values":["therapeutic_flag"]
         },   
         {
             "name":"FDA approval",
-            "description":"",
+            "description":"FDA information.",
             "values":
             [{
                 "name":"status",
-                "description":"",
+                "description":"FDA approval status.",
                 "values":["fda-label","biolink:highest_FDA_approval_status","first_approval","FDA Approval","FDA approval","highest_FDA_approval_status","LABELLED"]
             },
             {
                 "name":"year",
-                "description":"",
+                "description":"Year of FDA approval.",
                 "values":["Year of Approval"]
             }]
         },
         {
             "name":"ingredients",
-            "description":"",
+            "description":"Type of ingredient(s) used in the compound.",
             "values":["ingredient type"]
         },
         {
             "name":"indication",
-            "description":"",
+            "description":"Indication for the compound.",
             "values":["indication_class","indication","Drug Indications"]
         },
         {
@@ -121,42 +121,42 @@
         },
         {
             "name":"delivery",
-            "description":"",
+            "description":"Method of delivery or absorption of the compound.",
             "values":["oral","parenteral","topical","absorption"]
         },
         {
             "name":"availability",
-            "description":"",
+            "description":"Type of availability and affected organism for the compound.",
             "values":["availability_type","affected-organism","calculated-properties/Bioavailability"]
         },
         {
             "name":"half-life",
-            "description":"",
+            "description":"Half-life of the compound.",
             "values":["half-life"]
         },
         {
             "name":"elimination",
-            "description":"",
+            "description":"Route of elimination and clearance of the compound.",
             "values":["route-of-elimination","clearance"]
         },
         {
             "name":"withdrawn",
-            "description":"",
+            "description":"Withdrawal status and additional information about withdrawal.",
             "values":
             [{
                 "name":"status",
-                "description":"",
+                "description":"Withdrawal status of the compound.",
                 "values":["withdrawn_flag","black_box_warning","WITHDRAWN"]
             },
             {
                 "name":"additional informations regarding withdrawal",
-                "description":"",
+                "description":"Additional information regarding the withdrawal of the compound.",
                 "values":["withdrawn_year","withdrawn_country","withdrawn_reason","withdrawn_class"]
             }]
         },
         {
             "name":"supplier",
-            "description":"",
+            "description":"Pharmaceutical developer or supplier of the biochem compound.",
             "values":["Pharmaceutical Developer"]
         }
     ], 
@@ -164,32 +164,32 @@
     [
         {
             "name":"Molecular formula",
-            "description":"",
+            "description":"Types of atoms and number of each element in a molecule of the compound.",
             "values":["Molecular Formula","molecular formula","MOLECULAR_FORMULA","formula"]        
         },
         {
             "name":"mass",
-            "description":"",
+            "description":"Molecular weight or mass of a compound, which is the sum of the atomic weights of all atoms in the molecule.",
             "values":["Molecular Weight","molecular-weight","monoisotopic-mass","average-mass","MOLECULAR_WEIGHT","MONOISOTOPIC_WEIGHT","molecularWeight"]        
         },
         {
             "name":"molecular conformation",
-            "description":"",
+            "description":"Refers to the spatial arrangement of atoms in a molecule, including the stereochemistry, chirality, and atropisomerism of the compound.",
             "values":["definedStereo","ezCenters","stereoCenters","atropisomerism","opticalActivity","stereochemistry","chirality","atropisomerism","charge"]        
         },
         {
             "name":"experimental properties",
-            "description":"",
+            "description":"Refers to properties that have been directly measured through experimentation, such as caco2 permeability, hydrophobicity, water solubility, and polar surface area (PSA).",
             "values":["caco2 Permeability","Hydrophobicity","Water Solubility","calculated-properties/Water Solubility","PSA"]        
         },
         {
             "name":"calculated properties",
-            "description":"",
+            "description":"Refers to properties that are estimated through mathematical or computational methods, such as HBA count, HBD count, and rotatable bond count.",
             "values":["HBA_COUNT","HBD_COUNT","ROTATABLE_BOND_COUNT"]
         },
         {
             "name":"other experimental properties",
-            "description":"",
+            "description":"Refers to other properties that have been directly measured through experimentation, such as optical activity, boiling point, isoelectric point, melting point, logP, logS, pKa, and theoretical isoelectric point.",
             "values":["opticalActivity","Boiling Point","Isoelectric Point","Melting Point","logP","calculated-properties/logP","experimental-properties/logP","logS","experimental-properties/logS","pKa","experimental-properties/pKa","pKa (strongest acidic)","pKa (strongest basic)","theoretical-pi"]        
         }
     ],  
@@ -197,7 +197,7 @@
     [
         {
             "name":"Other identifications",
-            "description":"",
+            "description":"This section lists additional identifiers for the compound that are not covered by other fields.",
             "values":["InChI","InChIKey","calculated-properties/SMILES","pdb-entry","ATC","MeSH","usan_stem_definition","usan_substem"]
         },
         {
@@ -210,22 +210,22 @@
     [
         {
             "name":"Popularity",
-            "description":"",
+            "description":"The number of citations that the compound has received from 1950-2000.",
             "values":["Counted Citations from 1950-2000"]
         },
         {
             "name":"Publications",
-            "description":"",
+            "description":"The publications where the compound has been mentioned or studied, including the source reported drug name(s), and synthesis references",
             "values":["Source Reported Drug Name(s)","biolink:Publication","synthesis-reference","reference"]
         },
         {
             "name":"Patents",
-            "description":"",
+            "description":"The patents where the compound has been mentioned or studied.",
             "values":["patent"]
         },
         {
             "name":"Other",
-            "description":"",
+            "description":"External sources where the compound has been mentioned or studied, including the source reported drug name(s), synthesis references, and other references.",
             "values":["external-link"]
         }
     ]
