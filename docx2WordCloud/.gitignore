@@ -1,0 +1,47 @@
+# Ignore all files in the environment folder
+environment/
+env/
+.venv/
+ENV/
+
+# Ignore data files
+data/
+*.csv
+*.json
+*.xml
+*.xlsx
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore environment files
+.env
+*.env
+.env.*
+
+# Ignore log files
+*.log
+logs/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore package directories
+node_modules/
+bower_components/
+
+# Ignore build directories
+build/
+dist/
