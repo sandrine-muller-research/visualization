@@ -29,6 +29,7 @@ Make sure you've downloaded the language model:
 #### no arguments:
 Navigate to the location of the docxWordCloud.py, then run:
 > python docx2WordCloud.py
+
 You will be then prompted to give a .docx that you want to analyze and a dialog box to ask if you want to save the image (.jpg) of the wordcloud.
 
 ### with arguments:
