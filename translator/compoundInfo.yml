@@ -1,0 +1,73 @@
+Intro:
+ - name1: Structure
+ - value1: ""
+- name2: Chemical Formula
+- name3: Summary
+ - value3: description
+- name4: Generic Name
+- name5: Broad Accession Number
+- name6: Background
+- name7: Type
+- name8: Groups
+- name9: Synonyms
+Chemical properties:
+- name1: Weight
+- name2: Average
+- name3: Monoisotopic
+- name4: Other measures:
+  - value4: 
+   - name1: Water Solubility:
+   - name2: logP:
+   - name3: logS:
+   - name4: pKa (Strongest Acidic):
+   - name5: pKa (Strongest Basic):
+   - name6: Physiological Charge:
+   - name7: Hydrogen Acceptor Count:
+   - name8: Hydrogen Donor Count:
+   - name9: Polar Surface Area:
+   - name10: Rotatable Bond Count:
+   - name11: Refractivity:
+   - name12: Polarizability:
+   - name13: Number of Rings:
+   - name13: Bioavailability:
+   - name14: Rule of Five:
+   - name15: Ghose Filter:
+   - name16: Veber's Rule:
+   - name17: MDDR-like Rule:
+   - name18: Predicted ADMET Features:
+   - name19: SPECTRA:
+   - name20: Mass Spec:
+   - name21: Spectra:
+- name5: Synthesis
+- name6: Products
+- name7: Name
+- name8: Manufacturers
+- name9: Ingredients
+Pharmacology:
+- name1: FDA label
+- name2: Indication
+- name3: Dosage
+- name4: Absorption
+- name5: Volume of distribution
+- name6: Metabolism
+- name7: Route of elimination
+- name8: Half-life
+- name9: Clearance
+- name10: Adverse Effects
+- name11: Pharmacogenomic Effects/ADRs
+Function:
+- name1: Known mechanism of action
+- name2: Reactions
+- name3: Toxicity
+- name4: Pathways
+Context:
+- name: Disease
+- name: Organisms
+Interactions:
+- name: Protein binding
+- name: Drug Interactions
+- name: Food Interactions
+References:
+- name: Chemical identifiers
+- name: General
+- name: Patents
